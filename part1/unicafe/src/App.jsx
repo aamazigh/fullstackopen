@@ -1,7 +1,20 @@
 import { useState } from 'react'
 
+const Button = (props) => {
+  return (
+    <button onClick={() => props.setFeedback(props.feedback + 1)}>
+      {props.name}
+    </button>
+  )
+}
+
+const StatisticsLine = (props) => {
+      return (
+        <p>{props.text} {props.value}</p>
+      )
+}
+
 const Statistics = (props) => {
-  console.log(props)
   if (props.good === 0 && props.bad === 0 && props.neutral === 0) {
     return (
       <>
@@ -15,12 +28,12 @@ const Statistics = (props) => {
     <>
       <h1>statistics</h1>
 
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.good + props.neutral + props.bad}</p>
-      <p>average {(props.good - props.bad)/(props.good + props.neutral + props.bad)}</p>
-      <p>positive {props.good/(props.good + props.neutral + props.bad)*100}%</p>
+      <StatisticsLine text="good" value={props.good} />
+      <StatisticsLine text="neutral" value={props.neutral} />
+      <StatisticsLine text="bad" value={props.bad} />
+      <StatisticsLine text="all" value={props.good + props.bad + props.neutral} />
+      <StatisticsLine text="average" value={(props.good - props.bad)/(props.good + props.neutral + props.bad)} />
+      <StatisticsLine text="positive" value={props.good/(props.good + props.neutral + props.bad)*100 + '%'} />
     </>
 )
 }
@@ -34,16 +47,11 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => setGood(good + 1)}>
-        good 
-      </button>
-      <button onClick={() => setNeutral(neutral + 1)}>
-        neutral 
-      </button>
-      <button onClick={() => setBad(bad + 1)}>
-        bad 
-      </button>
-    <Statistics good={good} bad={bad} neutral={neutral} />
+      <Button name="good" feedback={good} setFeedback={setGood} />
+      <Button name="neutral" feedback={neutral} setFeedback={setNeutral} />
+      <Button name="bad" feedback={bad} setFeedback={setBad} />
+
+      <Statistics good={good} bad={bad} neutral={neutral} />
     
     </div>
   )
