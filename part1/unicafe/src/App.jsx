@@ -10,7 +10,14 @@ const Button = (props) => {
 
 const StatisticsLine = (props) => {
       return (
-        <p>{props.text} {props.value}</p>
+        <table style={{ width: '10%', align: 'left'}}>
+          <tbody>
+            <tr>
+              <td style={{ width: '50%' }}>{props.text}</td>
+              <td style={{ width: '50%'}}>{props.value}</td>
+            </tr>
+          </tbody>
+        </table>
       )
 }
 
@@ -32,8 +39,8 @@ const Statistics = (props) => {
       <StatisticsLine text="neutral" value={props.neutral} />
       <StatisticsLine text="bad" value={props.bad} />
       <StatisticsLine text="all" value={props.good + props.bad + props.neutral} />
-      <StatisticsLine text="average" value={(props.good - props.bad)/(props.good + props.neutral + props.bad)} />
-      <StatisticsLine text="positive" value={props.good/(props.good + props.neutral + props.bad)*100 + '%'} />
+      <StatisticsLine text="average" value={((props.good - props.bad)/(props.good + props.neutral + props.bad)).toFixed(1)} />
+      <StatisticsLine text="positive" value={(props.good/(props.good + props.neutral + props.bad)*100).toFixed(1) + '%'} />
     </>
 )
 }
