@@ -29,13 +29,17 @@ const App = () => {
     copypoints[selected] += 1
     setPoints(copypoints)
   }
-
+  
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>Has {points[selected]} votes</p>
       <button onClick={handleVote}>vote</button>
       <button onClick={() => setSelected(getRandomInt(0,anecdotes.length))}>next anecdote</button>
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[points.indexOf(Math.max(...points))]}</p>
+      <p>has {Math.max(...points)} votes</p>
     </div>
   )
 }
