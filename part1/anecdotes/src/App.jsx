@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 const App = () => {
 
+
   // from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
   }
-  
   
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -22,10 +22,19 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState(new Uint8Array(anecdotes.length))
+
+  const handleVote = () => {
+    const copypoints = [...points] 
+    copypoints[selected] += 1
+    setPoints(copypoints)
+  }
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>Has {points[selected]} votes</p>
+      <button onClick={handleVote}>vote</button>
       <button onClick={() => setSelected(getRandomInt(0,anecdotes.length))}>next anecdote</button>
     </div>
   )
