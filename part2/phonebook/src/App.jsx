@@ -10,12 +10,23 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    const personOjbect = {
+    
+    // Check whether name is already in the persons array of objects
+    // Using the some() method of Array
+    
+    if (persons.some(person => person.name === newPerson))
+    {
+      alert(`${newPerson} is already added to the phonebook`)
+    } else {
+
+      const personOjbect = {
       name: newPerson,
       id: persons.length + 1 
+      }
+      setPersons(persons.concat(personOjbect))
+      setNewPerson('')
+
     }
-    setPersons(persons.concat(personOjbect))
-    setNewPerson('')
   }
 
   const handleNameChange = (event) => { 
