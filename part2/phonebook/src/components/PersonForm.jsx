@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const PersonForm = ( {persons, setPersons, newPerson, newNumber, setNewNumber, setNewPerson} ) => {
     
   const addPerson = (event) => {
@@ -11,15 +13,20 @@ const PersonForm = ( {persons, setPersons, newPerson, newNumber, setNewNumber, s
       alert(`${newPerson} is already added to the phonebook`)
     } else {
 
-      const personOjbect = {
+      const personObject = {
         name: newPerson,
         number: newNumber,
         id: persons.length + 1 
       }
 
-      setPersons(persons.concat(personOjbect))
+      setPersons(persons.concat(personObject))
       setNewPerson('')
       setNewNumber('')
+
+      axios
+          .post('http://localhost:3001/persons', personObject)
+          .then(response => 
+          console.log(response))
 
     }
   }
